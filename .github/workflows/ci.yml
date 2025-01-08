@@ -1,4 +1,3 @@
-
 name: CI Pipeline
 
 on:
@@ -13,30 +12,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v3
 
-      
-      - name: Install Trivy
-        run: | 
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
-                   # Sprawdzanie lokalizacji Trivy
-          echo "Trivy installed in: $(pwd)/.trivy/bin"
-          # Dodanie ścieżki do zmiennej PATH
-          echo "$(pwd)/.trivy/bin" >> $GITHUB_PATH
-          # Sprawdzanie wersji Trivy
-          trivy --version
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
 
-      
-      - name: Build Docker image
-        run: docker build -t my-flask-app .
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      
-      - name: Scan Docker image with Trivy
-        run: trivy image --severity CRITICAL,HIGH my-flask-app
-
-      
       - name: Run tests (placeholder)
         run: echo "Test"
 
+      - name: Build Docker image
+        run: docker build -t devops-app .
