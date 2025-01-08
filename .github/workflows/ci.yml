@@ -21,9 +21,11 @@ jobs:
       - name: Install Trivy
         run: | 
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
-          # Dodanie lokalnego katalogu do zmiennej PATH
-          export PATH=$HOME/.trivy/bin:$PATH
-          # Sprawdzanie, czy trivy jest poprawnie zainstalowane
+                    # Sprawdzanie, gdzie jest zainstalowany trivy
+          echo "Trivy installed in: $(pwd)/.trivy/bin"
+          # Dodanie ścieżki do zmiennej PATH
+          export PATH=$(pwd)/.trivy/bin:$PATH
+          # Sprawdzanie wersji Trivy
           trivy --version
 
       
