@@ -22,6 +22,9 @@ jobs:
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
 
       
+      - name: Build Docker image
+        run: docker build -t my-flask-app .
+
       - name: Scan Docker image
         run: |
           docker build -t my-flask-app .
@@ -30,7 +33,3 @@ jobs:
       
       - name: Run tests (placeholder)
         run: echo "Test"
-
-      - name: Build Docker image
-        run: docker build -t my-flask-app .
-
