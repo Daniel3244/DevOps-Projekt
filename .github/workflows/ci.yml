@@ -23,28 +23,33 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Build Docker image
+        run: docker build -t my-flask-app .
+
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+
+      - name: Scan Docker image for vulnerabilities
+        run: ./trivy image my-flask-app
+
       - name: Run tests (placeholder)
         run: echo "Test"
 
-      - name: Build Docker image
-        run: docker build -t devops-app .
-
-     security-scan:
+  security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Build Docker image
-      run: |
-        docker build -t my-flask-app .
+      - name: Build Docker image
+        run: docker build -t my-flask-app .
 
-    - name: Install Trivy
-      run: |
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
 
-    - name: Scan Docker image for vulnerabilities
-      run: |
-        ./trivy image my-flask-app
+      - name: Scan Docker image for vulnerabilities
+        run: ./trivy image my-flask-app
+
