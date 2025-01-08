@@ -21,10 +21,10 @@ jobs:
       - name: Install Trivy
         run: | 
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
-                    # Sprawdzanie, gdzie jest zainstalowany trivy
+                   # Sprawdzanie lokalizacji Trivy
           echo "Trivy installed in: $(pwd)/.trivy/bin"
           # Dodanie ścieżki do zmiennej PATH
-          export PATH=$(pwd)/.trivy/bin:$PATH
+          echo "$(pwd)/.trivy/bin" >> $GITHUB_PATH
           # Sprawdzanie wersji Trivy
           trivy --version
 
