@@ -1,3 +1,4 @@
+
 name: CI Pipeline
 
 on:
@@ -18,7 +19,11 @@ jobs:
 
       
       - name: Install Trivy
-        run: 
+        run: | 
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+          # Dodanie lokalnego katalogu do zmiennej PATH
+          echo "$HOME/.trivy/bin" >> $GITHUB_PATH
+          # Sprawdzanie, czy trivy jest poprawnie zainstalowane
           trivy --version
 
       
