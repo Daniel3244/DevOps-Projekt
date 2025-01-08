@@ -25,7 +25,7 @@ jobs:
       - name: Scan Docker image
         run: |
           docker build -t my-flask-app .
-          ./trivy image --severity CRITICAL,HIGH my-flask-app
+          trivy image --severity CRITICAL,HIGH my-flask-app
 
       
       - name: Run tests (placeholder)
